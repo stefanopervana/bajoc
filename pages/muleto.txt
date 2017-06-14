@@ -1,0 +1,629 @@
+
+
+
+
+
+
+<p>Just as an <code>&lt;input&gt;</code> element displays its current <code>value</code> and emits changes via its <code>onChange</code> callback, we’d like our <code>ContactForm</code> to display a <code>value</code> (which it already does), and <em>emit new <code>contact</code> objects via an <code>onChange</code> callback</em>.</p>
+<p>So, after modifying <code>ContactForm.propTypes</code> appropriately:</p>
+<pre className="prettyprint"><code><span className="pln">propTypes</span><span className="pun">:</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    value</span><span className="pun">:</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="typ">PropTypes</span><span className="pun">.</span><span className="kwd">object</span><span className="pun">.</span><span className="pln">isRequired</span><span className="pun">,</span><span className="pln">
+    onChange</span><span className="pun">:</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="typ">PropTypes</span><span className="pun">.</span><span className="pln">func</span><span className="pun">.</span><span className="pln">isRequired</span><span className="pun">,</span><span className="pln">
+</span><span className="pun">&#125;</span></code></pre>
+<p>And adding a <code>console.log</code> to our <code>ContactView</code> class to test our work:</p>
+
+
+
+<pre className="prettyprint"><code><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="typ">ContactForm</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    value</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">newContact</span><span className="pun">,</span><span className="pln">
+    onChange</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln"> console</span><span className="pun">.</span><span className="pln">log</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">)</span><span className="pln"> </span><span className="pun">},</span><span className="pln">
+</span><span className="pun">})</span></code></pre>
+
+
+
+
+<p><strong>Your task is to add a working <code>onChange</code> prop to the <code>ContactForm</code> class.</strong></p>
+<p>This will involve adding <code>onChange</code> callbacks to the <code>&lt;input&gt;</code> and <code>&lt;textarea&gt;</code> elements. These callbacks call  <code>ContactForm</code>‘s own <code>onChange</code> callback, emitting a copy of the existing <code>value</code> with changes applied to the appropriate values. Your form element’s new <code>value</code> is available through the passed in <a href="https://facebook.github.io/react/docs/events.html">SyntheticEvent</a> <code>target</code> (see above example).</p>
+<p>Once everything is working as expected, each keystroke in the contact form should emit a console message. You can see this in action with the below JSBin solution.</p>
+<div className="hint">
+<strong>Hint:</strong> Don’t forget that <code>this</code> is has a different meaning within a nested <code>function</code>!
+</div>
+<div className="hint">
+<strong>Hint:</strong> While not strictly necessary, ES6’s <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign">Object.assign</a> will make your life so much easier here that I’d be a terrible person if I didn’t mention it. Use the MDN <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign#Polyfill">polyfill</a> to enable it.<p></p>
+<p>Here is how you’d use <code>Object.assign</code> in this exercise:</p>
+
+
+
+
+
+<pre className="prettyprint">{`<code><span className="com">// Return a new "contact" with an updated "name" property</span><span className="pln">
+</span><span className="kwd">var</span><span className="pln"> updated </span><span className="pun">=</span><span className="pln"> </span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">({},</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">value</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">name</span><span className="pun">:</span><span className="pln"> e</span><span className="pun">.</span><span className="pln">target</span><span className="pun">.</span><span className="pln">value</span><span className="pun">})</span></code>`}</pre>
+
+
+
+  </div><code>
+</code>
+<p><iframe className="" id="" data-url="http://jsbin.com/pebujejace/embed?console,output" src="http://jsbin.com/pebujejace/embed?console,output" style="border: 1px solid rgb(170, 170, 170); width: 100%; min-height: 300px; height: 385px;"></iframe><script src="https://static.jsbin.com/js/embed.min.js?3.34.3"></script></p>
+<p>Congratulations – you’ve now completed the most <em>important</em> part of your form! Of course when you’re building forms on your own, you’re not going to get the correct <code>propTypes</code> handed to you on a platter; you’re either going to need to comb through the React documentation to find what works, or take a quick look at my React.js Cheatsheet. But I digress. Let’s move on and quickly implement the <em>fun</em> part of your form.</p>
+<script src="https://app.convertkit.com/assets/CKJS4.js?v=18"></script>
+<link rel="stylesheet" href="ck_form.html"></link>
+<div className="ck_form single_line ck_vertical width500">
+
+  <div className="ck_form_fields">
+  
+    <h3>Get the PDF cheatsheet!</h3>
+
+    <div id="ck_success_msg" style="display:none;">
+      <p>Thanks! Please check your email for the link to your cheatsheets.</p>
+    </div>
+
+   // Form starts here
+  <pre>{`
+    <form id="ck_subscribe_form" className="ck_subscribe_form" action="https://app.convertkit.com/landing_pages/4416/subscribe" data-remote="true">
+      <input type="hidden" name="id" value="4416" id="landing_page_id">
+      <div className="ck_errorArea">
+        <div id="ck_error_msg" style="display:none">
+          <p>There was an error submitting your subscription. Please try again.</p>
+        </div>
+      </div>
+        <div>
+          <label className="ck_label" for="ck_firstNameField" style="display:none">First Name</label>
+        
+          <input type="text" name="first_name" placeholder="First name" className="ck_first_name" id="ck_firstNameField" required="">
+        </div>
+        <div className="field">
+          <label className="ck_label" for="ck_emailField" style="display:none">Email Address</label>
+        
+          <input type="email" name="email" placeholder="Email address" className="ck_email_address" id="ck_emailField" required="">
+        </div>
+
+        <button className="subscribe_button ck_subscribe_button btn fields" id="ck_subscribe_button">
+          Subscribe to my Newsletter
+        </button>
+    </form>
+  </div>
+ </div>
+ <style type="text/css">
+.ck_form.single_line {
+  /* divider image */
+  background: #f9f9f9;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+  line-height: 1.5em;
+  overflow: hidden;
+  color: #666;
+  font-size: 16px;
+  border: solid 1px #d1d1d1;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  clear: both;
+  margin: 20px auto;
+  text-align: center;
+  width: 85%;
+  border-radius: 6px;
+}
+
+
+.ck_form.single_line h3, #content .ck_form.single_line h3 { 
+  text-align: center; 
+  margin: 0px 0px 10px; 
+  font-size: 24px;
+}
+
+.ck_form.single_line p {
+  padding: 0px;
+}
+
+.ck_form * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#ck_subscribe_form {
+  clear: both;
+}
+
+.ck_form.single_line .ck_form_fields {
+  width: 100%;
+  float: left;
+  padding: 24px 0;
+}
+/* Form fields */
+
+.ck_errorArea {
+  display: none; /* temporary */
+}
+
+#ck_success_msg {
+  margin: 0 30px;
+  padding: 0 10px;
+  border: solid 1px #ddd;
+  background: #eee;
+}
+
+.ck_form.single_line input[type="text"], .ck_form.single_line input[type="email"] {
+  font-size: 18px;
+  padding: 10px 8px;
+  width: 68%;
+  border: 1px solid #d6d6d6; /* stroke */
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px; /* border radius */
+  background-color: #fff; /* layer fill content */
+  height: auto;
+  margin: 5px 0;
+  height: 42px;
+}
+
+.ck_form input[type="text"]:focus, .ck_form input[type="email"]:focus {
+  outline: none;
+  border-color: #aaa;
+} 
+
+.ck_form.single_line .ck_checkbox {
+  display: none;
+}
+
+.ck_form.single_line .ck_subscribe_button {
+    color: #fff;
+    margin: 0px;
+    padding:  11px 22px;
+    font-size: 18px;
+    background: #b30e2f;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px; /* border radius */
+    cursor: pointer;
+    border: none;
+    text-shadow: none;
+    margin: 10px 0 0;
+    height: 42px;
+    width: auto;
+  }
+  
+  
+.ck_form.single_line .ck_guarantee {
+  color: #626262;
+  font-size: 15px;
+  text-align: center;
+  padding: 15px 0px 0px;
+  display: block;
+  clear: both;
+}
+ </style>`}</pre>
+<h2>Exercise 2 – Displaying changes</h2>
+<p>Can you remember how we went about displaying new data in <a href="#">part one</a>? All you need to do is create a new <code>ReactElement</code> with the updated data, and pass it to <code>ReactDOM.render</code>:</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> rootElement </span><span className="pun">=</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="typ">ContactView</span><span className="pun">,</span><span className="pln"> newData</span><span className="pun">)</span><span className="pln">
+</span><span className="typ">ReactDOM</span><span className="pun">.</span><span className="pln">render</span><span className="pun">(</span><span className="pln">rootElement</span><span className="pun">,</span><span className="pln"> document</span><span className="pun">.</span><span className="pln">getElementById</span><span className="pun">(</span><span className="str">'react-app'</span><span className="pun">))</span></code></pre>
+<p>The only problem being that the new data is currently only available to the <code>ContactView</code> component:</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> </span><span className="typ">ContactView</span><span className="pln"> </span><span className="pun">=</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createClass</span><span className="pun">(&#123;</span><span className="pln">
+  </span><span className="com">// ...</span><span className="pln">
+
+  render</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">()</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    </span><span className="kwd">return</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="str">'div'</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">className</span><span className="pun">:</span><span className="pln"> </span><span className="str">'ContactView'</span><span className="pun">},</span><span className="pln">
+      </span><span className="com">// ...</span><span className="pln">
+      </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="typ">ContactForm</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+        value</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">newContact</span><span className="pun">,</span><span className="pln">
+        onChange</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+            </span><span className="com">/*
+             * Our new `contact` is only available here
+             */</span><span className="pln">
+        </span><span className="pun">},</span><span className="pln">
+    </span><span className="pun">})</span><span className="pln">
+  </span><span className="pun">},</span><span className="pln">
+</span><span className="pun">});</span><span className="pln">
+
+</span><span className="com">/*
+  * But we want to use our new `contact` here!
+  */</span><span className="pln">
+</span><span className="typ">ReactDOM</span><span className="pun">.</span><span className="pln">render</span><span className="pun">(</span><span className="pln">
+  </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="typ">ContactView</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    contacts</span><span className="pun">:</span><span className="pln"> contacts</span><span className="pun">,</span><span className="pln">
+    newContact</span><span className="pun">:</span><span className="pln"> newContact
+  </span><span className="pun">}),</span><span className="pln">
+  document</span><span className="pun">.</span><span className="pln">getElementById</span><span className="pun">(</span><span className="str">'react-app'</span><span className="pun">)</span><span className="pln">
+</span><span className="pun">)</span></code></pre>
+<p>How would you access the new <code>contact</code> from the application’s entry point? Using callbacks, of course!</p>
+<p><strong>Your task is to add an <code>onContactChange</code> prop to the <code>ContactView</code> component, and use this to display the latest changes.</strong></p>
+<p>Once complete, you should have a working form:</p>
+<p><iframe className="" id="" data-url="http://jsbin.com/veyima/embed?js,output" src="http://jsbin.com/veyima/embed?js,output" style="border: 1px solid rgb(170, 170, 170); width: 100%; min-height: 300px; height: 385px;"></iframe><script src="https://static.jsbin.com/js/embed.min.js?3.34.3"></script></p>
+<p>And now you know everything you need to know to build Ridiculously Simple Forms with React! So let’s talk about:</p>
+<h2>Why?</h2>
+<p>The first time I saw a form component with <code>value</code> and <code>onChange</code> props, I thought to myself: <em>this is fucking stupid!</em> Why should my form have a <code>value</code> prop when the <code>&lt;input&gt;</code> elements underneath it have <code>value</code> props too? Isn’t that code duplication? Isn’t that failing to separate concerns? It felt anything but elegant, but here I am telling you to build forms that way — <em>why?</em></p>
+<p>React’s killer feature is that it helps us make user interfaces which are <em>easy to reason about</em>. But React can’t do this by itself; we need to help it out by making sure that a component’s <code>props</code> tell us everything about it. This means that our form’s displayed data must all be available under its <code>value</code>, and that changes must be emitted through callbacks — <em>not</em> hidden inside the form component’s state.</p>
+<p>And the thing is — we wouldn’t be managing that state if we didn’t need to use it. Even if we were to find a way to move data from the <code>&lt;input&gt;</code> components to where it is needed <em>without</em> passing it through <code>ContactForm</code>‘s <code>value</code> and <code>onChange</code> props, there would still need to be <em>some</em> way of making that transfer happen.</p>
+<p>In larger projects, all this wiring <em>can</em> make it a little harder to grok the bigger picture. In these cases, tools like Flux will help add structure to manage your complexity. <em>But,</em> if you’re just starting a new project, you don’t <em>have</em> any complexity to manage! So while our Ridiculously Simple Forms may not be particularly <em>elegant</em>, they are certainly incredibly <em>simple</em>:</p>
+<p><img src="http://jamesknelson.com/wp-content/uploads/2015/09/banner.jpg" alt="Elegant vs Simple"></img></p>
+<div className="hint">
+I <em>probably</em> should mention that React is a broad church. In addition to the <strong>controlled components</strong> you’ve been using, React also supports something called <a href="https://facebook.github.io/react/docs/forms.html#uncontrolled-components">uncontrolled components</a> (i.e. those without a solid <code>value</code> prop). Nobody uses them though, or at least nobody <em>should</em>.
+</div>
+<p>So now that we’ve decided we’re going to structure forms this way, lets spend a little time making them easier to work with. Starting with:</p>
+<h2>Instance methods and auto-binding</h2>
+<p>Did your solution to Exercise One use anonymous functions for <code>onChange</code> callbacks, like mine?</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> oldContact </span><span className="pun">=</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">value</span><span className="pun">;</span><span className="pln">
+</span><span className="kwd">var</span><span className="pln"> onChange </span><span className="pun">=</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">onChange</span><span className="pun">;</span><span className="pln">
+
+</span><span className="com">// ...</span><span className="pln">
+
+</span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="str">'input'</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+  type</span><span className="pun">:</span><span className="pln"> </span><span className="str">'text'</span><span className="pun">,</span><span className="pln">
+  placeholder</span><span className="pun">:</span><span className="pln"> </span><span className="str">'Name (required)'</span><span className="pun">,</span><span className="pln">
+  value</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">value</span><span className="pun">.</span><span className="pln">name</span><span className="pun">,</span><span className="pln">
+  onChange</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">(</span><span className="pln">e</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    onChange</span><span className="pun">(</span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">({},</span><span className="pln"> oldContact</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">name</span><span className="pun">:</span><span className="pln"> e</span><span className="pun">.</span><span className="pln">target</span><span className="pun">.</span><span className="pln">value</span><span className="pun">}));</span><span className="pln">
+  </span><span className="pun">},</span><span className="pln">
+</span><span className="pun">}),</span></code></pre>
+<p>Ignoring the fact that JavaScript creates these anonymous functions anew <em>every single time <code>render</code> is called</em> (which is sloooooow), defining handlers like this is a pain in the arse because we need a workaround to access <code>this</code>. And given the number of event handlers our forms need, this isn’t just a <em>small</em> pain.</p>
+<p>To avoid this, define your handlers as component instance methods by passing them to <code>React.createClass</code>. React auto-binds instance methods, ensuring that <code>this</code> always refers to your component instance. Even when used as callbacks:</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> </span><span className="typ">ContactForm</span><span className="pln"> </span><span className="pun">=</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createClass</span><span className="pun">(&#123;</span><span className="pln">
+  propTypes</span><span className="pun">:</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    </span><span className="com">// ...</span><span className="pln">
+  </span><span className="pun">},</span><span className="pln">
+
+  onNameInput</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">(</span><span className="pln">e</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">onChange</span><span className="pun">(</span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">({},</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">props</span><span className="pun">.</span><span className="pln">value</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">name</span><span className="pun">:</span><span className="pln"> e</span><span className="pun">.</span><span className="pln">target</span><span className="pun">.</span><span className="pln">value</span><span className="pun">}))</span><span className="pln">
+  </span><span className="pun">},</span><span className="pln">
+
+  render</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">()</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+    </span><span className="kwd">return</span><span className="pln"> </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="str">'form'</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">className</span><span className="pun">:</span><span className="pln"> </span><span className="str">'ContactForm'</span><span className="pun">},</span><span className="pln">
+      </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="str">'input'</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+        </span><span className="com">// ...</span><span className="pln">
+        onInput</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">this</span><span className="pun">.</span><span className="pln">onNameInput</span><span className="pun">,</span><span className="pln">
+      </span><span className="pun">})</span><span className="pln">
+      </span><span className="com">// ...</span><span className="pln">
+    </span><span className="pun">)</span><span className="pln">
+  </span><span className="pun">&#125;</span><span className="pln">
+</span><span className="pun">});</span></code></pre>
+<div className="hint">
+If you find yourself drowning in callback methods, you could automate their creation with a <a href="http://jamesknelson.com/structuring-react-applications-higher-order-components/">Higher-Order Component</a>. But only if you really are drowning in them.
+</div>
+<h2>Structuring application state</h2>
+<p>As it stands, our app only contains <em>two</em> top level variables – <code>contacts</code> and <code>newContact</code> – so you’d think we’d be a way from having to worry about structure. But apps don’t stay small forever, and this begs the question of <em>where do you draw the line?</em> Five variables? 50?</p>
+<p>For Ridiculously Simple Forms, and indeed Ridiculously Simple Apps, the best place to draw the line is actually <em>one</em> state variable. Managing all your state from one place means you’ll never forget to do your housekeeping, and also eliminates that most annoying problem of <em>deciding where to put things</em>.</p>
+<p>But how do you turn two state variables into one? Exactly the same way that React does – with a state object and a setter function:</p>
+<pre className="prettyprint"><code><span className="com">/*
+ * State
+ */</span><span className="pln">
+
+</span><span className="com">// The app's complete current state</span><span className="pln">
+</span><span className="kwd">var</span><span className="pln"> state </span><span className="pun">=</span><span className="pln"> </span><span className="pun">{};</span><span className="pln">
+
+</span><span className="com">// Make the given changes to the state and perform any required housekeeping</span><span className="pln">
+</span><span className="kwd">function</span><span className="pln"> setState</span><span className="pun">(</span><span className="pln">changes</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+  </span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">(</span><span className="pln">state</span><span className="pun">,</span><span className="pln"> changes</span><span className="pun">);</span><span className="pln">
+
+  </span><span className="typ">ReactDOM</span><span className="pun">.</span><span className="pln">render</span><span className="pun">(</span><span className="pln">
+    </span><span className="typ">React</span><span className="pun">.</span><span className="pln">createElement</span><span className="pun">(</span><span className="typ">ContactView</span><span className="pun">,</span><span className="pln"> </span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">({},</span><span className="pln"> state</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+      onNewContactChange</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">function</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+        setState</span><span className="pun">(&#123;</span><span className="pln">newContact</span><span className="pun">:</span><span className="pln"> contact</span><span className="pun">});</span><span className="pln">
+      </span><span className="pun">},</span><span className="pln">
+    </span><span className="pun">})),</span><span className="pln">
+    document</span><span className="pun">.</span><span className="pln">getElementById</span><span className="pun">(</span><span className="str">'react-app'</span><span className="pun">)</span><span className="pln">
+  </span><span className="pun">);</span><span className="pln">
+</span><span className="pun">&#125;</span><span className="pln">
+
+</span><span className="com">// Set initial data</span><span className="pln">
+setState</span><span className="pun">(&#123;</span><span className="pln">
+  contacts</span><span className="pun">:</span><span className="pln"> </span><span className="pun">[</span><span className="pln">
+    </span><span className="pun">&#123;</span><span className="pln">key</span><span className="pun">:</span><span className="pln"> </span><span className="lit">1</span><span className="pun">,</span><span className="pln"> name</span><span className="pun">:</span><span className="pln"> </span><span className="str">"James K Nelson"</span><span className="pun">,</span><span className="pln"> email</span><span className="pun">:</span><span className="pln"> </span><span className="str">"james@jamesknelson.com"</span><span className="pun">,</span><span className="pln"> description</span><span className="pun">:</span><span className="pln"> </span><span className="str">"Front-end Unicorn"</span><span className="pun">},</span><span className="pln">
+    </span><span className="pun">&#123;</span><span className="pln">key</span><span className="pun">:</span><span className="pln"> </span><span className="lit">2</span><span className="pun">,</span><span className="pln"> name</span><span className="pun">:</span><span className="pln"> </span><span className="str">"Jim"</span><span className="pun">,</span><span className="pln"> email</span><span className="pun">:</span><span className="pln"> </span><span className="str">"jim@example.com"</span><span className="pun">},</span><span className="pln">
+  </span><span className="pun">],</span><span className="pln">
+  newContact</span><span className="pun">:</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">name</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">,</span><span className="pln"> email</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">,</span><span className="pln"> description</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">},</span><span className="pln">
+</span><span className="pun">});</span></code></pre>
+<p>And since we’re deciding where to put things, let’s finish the job properly and also decide where to put code which <em>modifies</em> state. Since we’re aiming for simple, let’s just creates one <code>function</code> for each of the <strong>actions</strong> we can perform. Like this:</p>
+<pre className="prettyprint"><code><span className="com">/*
+ * Actions
+ */</span><span className="pln">
+
+</span><span className="kwd">function</span><span className="pln"> updateNewContact</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">)</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+  setState</span><span className="pun">(&#123;</span><span className="pln"> newContact</span><span className="pun">:</span><span className="pln"> contact </span><span className="pun">});</span><span className="pln">
+</span><span className="pun">&#125;</span></code></pre>
+<p>Switch out the anonymous function assigned to <code>onNewContactChange</code> for our new <code>updateNewContact</code>, and we’re good to go!</p>
+<p><iframe className="" id="" data-url="http://jsbin.com/fomege/embed?js,output" src="http://jsbin.com/fomege/embed?js,output" style="border: 1px solid rgb(170, 170, 170); width: 100%; min-height: 300px; height: 385px;"></iframe><script src="https://static.jsbin.com/js/embed.min.js?3.34.3"></script></p>
+<p>So now that you can add actions and state in your sleep, let’s try:</p>
+<h2>Exercise 3 – Saving contacts</h2>
+<p>The only thing left before your form is fully functional is the ability to add new contacts to the list.</p>
+<p>To do this, you’ll need an action which expands the <code>contacts</code> array and resets <code>newContact</code> – let’s call this action <code>submitNewContact</code>. You’ll also want to make sure this action ignores contacts with an empty <code>name</code> or <code>email</code>. Once you’ve got your action though, you’ll need a way to <em>call</em> it.</p>
+<p>We <em>could</em> do this by passing <code>submitNewContact</code> through to your submit button’s <code>onClick</code> prop, which is called every time the user clicks the button (surprise!). But, since we care about the user experience, we don’t want them to be surprised when they hit <em>enter</em> after entering their contact — and nothing happens. So instead, let’s call our action when the <code>submit</code> event is fired on the HTML <code>&lt;form&gt;</code>.</p>
+<p><strong>Your task is to implement the <code>submitNewContact</code> action.</strong></p>
+<p>Check the <a href="https://facebook.github.io/react/docs/events.html">React documentation</a> if you need help finding appropriate callback props. Once you’ve got it working, see how your solution compares with mine. Don’t get too hung up on any differences, though – the important thing is that it works!</p>
+<div className="hint">
+Is your browser reloading the page each time you press <em>Add Contact</em>? Make sure to call <code>e.preventDefault()</code> on your <code>submit</code> event, otherwise your browser will do what it normally does and submit the form!
+</div>
+<p><iframe className="" id="" data-url="http://jsbin.com/sizove/embed?js,output" src="http://jsbin.com/sizove/embed?js,output" style="border: 1px solid rgb(170, 170, 170); width: 100%; min-height: 300px; height: 385px;"></iframe><script src="https://static.jsbin.com/js/embed.min.js?3.35.0"></script></p>
+<h2>Don’t make users think</h2>
+<p>Congratulations – you’ve now completed a functional app! However, you’re not going to kill salesforce by just getting the <em>functionality</em> right. People won’t buy your product unless they <em>understand</em> it.</p>
+<p>From your customer’s point of view, there is still a serious issue with this app: when the user clicks the “Add Contact” button without entering anything, <em>nothing happens</em>. People expect something to happen when they click a button, so let’s prevent any confusion by making sure something <em>does</em>.</p>
+<h2>Ridiculously Simple Validation</h2>
+<p>If you’ve completed exercise three (which you <em>should</em> have, seeing you’re reading this), you’ve already implemented basic validation! Our task is to actually display the result to the user.</p>
+<p>Doing so will require passing our validation result from <em>where it is computed</em> to <em>where it is rendered</em>. Happily, we don’t need any callbacks this time; we can implement this by adding an <code>errors</code> object to the <code>newContact</code> object inside our submit action:</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> contact </span><span className="pun">=</span><span className="pln"> </span><span className="typ">Object</span><span className="pun">.</span><span className="pln">assign</span><span className="pun">({},</span><span className="pln"> state</span><span className="pun">.</span><span className="pln">newContact</span><span className="pun">,</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">key</span><span className="pun">:</span><span className="pln"> state</span><span className="pun">.</span><span className="pln">contacts</span><span className="pun">.</span><span className="pln">length </span><span className="pun">+</span><span className="pln"> </span><span className="lit">1</span><span className="pun">,</span><span className="pln"> errors</span><span className="pun">:</span><span className="pln"> </span><span className="pun">{}});</span></code></pre>
+<p>Store any messages on the appropriate properties under <code>contact.errors</code>:</p>
+<pre className="prettyprint"><code><span className="com">// Test that `contact.email` looks like a real e-mail address using a RegExp</span><span className="pln">
+</span><span className="kwd">if</span><span className="pln"> </span><span className="pun">(!/.+@.+</span><span className="pln">\.</span><span className="pun">.+/.</span><span className="pln">test</span><span className="pun">(</span><span className="pln">contact</span><span className="pun">.</span><span className="pln">email</span><span className="pun">))</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">
+  contact</span><span className="pun">.</span><span className="pln">errors</span><span className="pun">.</span><span className="pln">email </span><span className="pun">=</span><span className="pln"> </span><span className="pun">[</span><span className="str">"Please enter your new contact's email"</span><span className="pun">]</span><span className="pln">
+</span><span className="pun">&#125;</span></code></pre>
+<p>And to distinguish between new contacts and those which have failed validation, let’s keep <code>errors</code> as <code>null</code> on our contact template:</p>
+<pre className="prettyprint"><code><span className="kwd">var</span><span className="pln"> CONTACT_TEMPLATE </span><span className="pun">=</span><span className="pln"> </span><span className="pun">&#123;</span><span className="pln">name</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">,</span><span className="pln"> email</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">,</span><span className="pln"> description</span><span className="pun">:</span><span className="pln"> </span><span className="str">""</span><span className="pun">,</span><span className="pln"> errors</span><span className="pun">:</span><span className="pln"> </span><span className="kwd">null</span><span className="pun">&#125;</span></code></pre>
+<p>If you’ve used Ruby on Rails, this pattern probably feels fairly familiar – the only difference is that it doesn’t use a special Errors class, making it <em>even simpler</em>. But now that we’ve stored our error messages in the application state, how do we display them?</p>
+<h2>Exercise 4 – Displaying validation errors</h2>
+<p>To keep things simple, let’s ignore the messages themselves.</p>
+<p><strong>Your task is to display a red border on the <code>&lt;input&gt;</code> elements which have an error.</strong></p>
+<p>Do so by adding <code>className</code> props to the appropriate <code>&lt;input&gt;</code> elements. Once you’ve got it working, compare your solution with mine.</p>
+<p><iframe className="" id="" data-url="http://jsbin.com/bijuqu/embed?js,output" src="http://jsbin.com/bijuqu/embed?js,output" style="border: 1px solid rgb(170, 170, 170); width: 100%; min-height: 300px; height: 385px;"></iframe><script src="https://static.jsbin.com/js/embed.min.js?3.35.0"></script></p>
+<p>And there you have it – you now know how to build Ridiculously Simple Forms! And all in less time than it would have taken to even <em>start</em> building a list of form libraries. Pat yourself on the back for a job well done!</p>
+<h2>Choose your adventure</h2>
+<p>So where do you go from here? Well, given that you now know how to make ridiculously <em>simple</em> forms, it wouldn’t hurt to invest some time in learning how to make them <em>usable</em>. To do this, you’re going to need to understand how to interact with the DOM using React. And <a href="http://jamesknelson.com/react-js-by-example-interacting-with-the-dom/">this article will teach you how</a>, using the same codebase that you’re already familiar with.</p>
+<p>But once you’ve mastered React DOM interaction, are you just going to spend your weeks tweaking your single form on your single page? Of course you’re not. And that is why you need to learn about <strong>routing</strong>.</p>
+<p>Luckily, after reading next week’s article in the <em>Raw React</em> series, you’ll be able to build an incredibly simple router for your React application <em>in your sleep</em>. And you won’t stop there – when complete, your app will be able to:</p>
+<ul>
+<li>Handle navigation/routing</li>
+<li>Communicate with an API</li>
+<li>Authenticate users</li>
+</ul>
+<p><em>Update: <a href="http://jamesknelson.com/routing-with-raw-react/">Part 3: Routing with Raw React</a> has been released.</em></p>
+<p>In return for your e-mail address, I’ll send you the complete series via e-mail <em>as it is released</em>. And as a bonus you’ll immediately receive 3 <em>print-optimised</em> PDF cheatsheets – on <a href="http://jamesknelson.com/wp-content/uploads/2015/09/react-cheatsheet-thumbnail.png">React</a>, <a href="http://jamesknelson.com/wp-content/uploads/2015/09/es6-cheatsheet-thumbnail.png">ES6</a> and <a href="http://jamesknelson.com/wp-content/uploads/2015/09/promises-cheatsheet-thumbnail.png">JavaScript promises</a>.</p>
+<script src="https://app.convertkit.com/assets/CKJS4.js?v=21"></script>
+
+<div className="ck_form ck_vertical_subscription_form ck_horizontal">
+  <div className="ck_form_content">
+      <h3 className="ck_form_title">I will send you useful articles, cheatsheets and code.</h3>
+      <div className="ck_description">
+          I won't send you useless inbox filler. <em>No spam, ever.</em>
+      </div>
+  </div>
+
+  <div className="ck_form_fields">
+
+    <div id="ck_success_msg" style="display:none;">
+      <p>Thanks! Please check your email for the link to your cheatsheets.</p>
+    </div>
+
+//Form starts here
+<pre>{`<form id="ck_subscribe_form" className="ck_subscribe_form" action="https://app.convertkit.com/landing_pages/4375/subscribe" data-remote="true">
+      <input type="hidden" value="{&quot;embed_style&quot;:&quot;inline&quot;,&quot;embed_trigger&quot;:&quot;scroll_percentage&quot;,&quot;scroll_percentage&quot;:&quot;70&quot;,&quot;delay_seconds&quot;:&quot;10&quot;,&quot;display_position&quot;:&quot;br&quot;,&quot;display_devices&quot;:&quot;all&quot;,&quot;days_no_show&quot;:&quot;15&quot;,&quot;converted_behavior&quot;:&quot;show&quot;}" id="ck_form_options">
+      <input type="hidden" name="id" value="4375" id="landing_page_id">
+      <div className="ck_errorArea">
+        <div id="ck_error_msg" style="display:none">
+          <p>There was an error submitting your subscription. Please try again.</p>
+        </div>
+      </div>
+      <div className="ck_control_group ck_first_name_field_group">
+        <label className="ck_label" for="ck_firstNameField">First Name</label>
+        <input type="text" name="first_name" className="ck_first_name" id="ck_firstNameField">
+      </div>
+      <div className="ck_control_group ck_email_field_group">
+        <label className="ck_label" for="ck_emailField">Email Address</label>
+          <input type="email" name="email" className="ck_email_address" id="ck_emailField" required="">
+      </div>
+      <label className="ck_checkbox" style="display:none;">
+        <div className="checker" id="uniform-optIn" style="display: none;"><span className="checked"><input className="optIn ck_course_opted" name="course_opted" type="checkbox" id="optIn" checked="" style="opacity: 0;"></span></div>
+        <span className="ck_opt_in_prompt">I'd like to receive the free email course.</span>
+      </label>
+
+      <button className="subscribe_button ck_subscribe_button btn fields" id="ck_subscribe_button">
+       Join over 5000 subscribers
+      </button>
+      <span className="ck_guarantee">
+        Unsubscribe at any time.
+      </span>
+    </form>
+  </div>
+
+ </div>
+
+
+<style type="text/css">/* Layout */
+  .ck_form {
+  /* divider image */
+  background: #fff url(data:image/gif;base64,R0lGODlhAQADAIABAMzMzP///yH/C1hNUCBEYXRhWE1QPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS41LWMwMTQgNzkuMTUxNDgxLCAyMDEzLzAzLzEzLTEyOjA5OjE1ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUQ5NjM5RjgxQUVEMTFFNEJBQTdGNTQwMjc5MTZDOTciIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUQ5NjM5RjkxQUVEMTFFNEJBQTdGNTQwMjc5MTZDOTciPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxRDk2MzlGNjFBRUQxMUU0QkFBN0Y1NDAyNzkxNkM5NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoxRDk2MzlGNzFBRUQxMUU0QkFBN0Y1NDAyNzkxNkM5NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PgH//v38+/r5+Pf29fTz8vHw7+7t7Ovq6ejn5uXk4+Lh4N/e3dzb2tnY19bV1NPS0dDPzs3My8rJyMfGxcTDwsHAv769vLu6ubi3trW0s7KxsK+urayrqqmop6alpKOioaCfnp2cm5qZmJeWlZSTkpGQj46NjIuKiYiHhoWEg4KBgH9+fXx7enl4d3Z1dHNycXBvbm1sa2ppaGdmZWRjYmFgX15dXFtaWVhXVlVUU1JRUE9OTUxLSklIR0ZFRENCQUA/Pj08Ozo5ODc2NTQzMjEwLy4tLCsqKSgnJiUkIyIhIB8eHRwbGhkYFxYVFBMSERAPDg0MCwoJCAcGBQQDAgEAACH5BAEAAAEALAAAAAABAAMAAAICRFIAOw==) repeat-y center top;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, sans-serif;
+  line-height: 1.5em;
+  overflow: hidden;
+  color: #666;
+  font-size: 16px;
+  border-top: solid 20px #3071b0;
+  border-top-color: #b30e2f;
+  border-bottom: solid 10px #3d3d3d;
+  border-bottom-color: #5f0719;
+  -webkit-box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+  -moz-box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+  box-shadow: 0px 0px 5px rgba(0,0,0,.3);
+  clear: both;
+  margin: 20px 0px;
+}
+
+.ck_form * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#ck_subscribe_form {
+  clear: both;
+}
+
+/* Element Queries — uses JS */
+
+.ck_form_content, .ck_form_fields {
+  width: 50%;
+  float: left;
+  padding: 5%;
+}
+
+.ck_form.ck_horizontal {
+}
+
+.ck_form_content {
+  border-bottom: none;
+}
+
+.ck_form.ck_vertical {
+  background: #fff;
+}
+
+.ck_vertical .ck_form_content, .ck_vertical .ck_form_fields {
+  padding: 10%;
+  width: 100%;
+  float: none;
+}
+
+.ck_vertical .ck_form_content {
+  border-bottom: 1px dotted #aaa;
+  overflow: hidden;
+}
+
+/* Trigger the vertical layout with media queries as well */
+
+@media all and (max-width: 499px) {
+
+  .ck_form {
+    background: #fff;
+  }
+
+  .ck_form_content, .ck_form_fields {
+    padding: 10%;
+    width: 100%;
+    float: none;
+  }
+
+  .ck_form_content {
+    border-bottom: 1px dotted #aaa;
+  }
+
+}
+
+/* Content */
+
+.ck_form_content h3 {
+  margin: 0px 0px 15px;
+  font-size: 24px;
+  padding: 0px;
+}
+
+
+.ck_form_content p {
+  font-size: 14px;
+}
+
+.ck_image {
+  float: left;
+  margin-right: 5px;
+}
+
+/* Form fields */
+
+.ck_errorArea {
+  display: none;
+}
+
+#ck_success_msg {
+  padding: 10px 10px 0px;
+  border: solid 1px #ddd;
+  background: #eee;
+}
+
+.ck_label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ck_form input[type="text"], .ck_form input[type="email"] {
+  font-size: 14px;
+  padding: 10px 8px;
+  width: 100%;
+  border: 1px solid #d6d6d6; /* stroke */
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px; /* border radius */
+  background-color: #f8f7f7; /* layer fill content */
+  margin-bottom: 5px;
+  height: auto;
+}
+
+.ck_form input[type="text"]:focus, .ck_form input[type="email"]:focus {
+  outline: none;
+  border-color: #aaa;
+}
+
+.ck_checkbox {
+  padding: 10px 0px 10px 20px;
+  display: block;
+  clear: both;
+}
+
+.ck_checkbox input.optIn {
+  margin-left: -20px;
+  margin-top: 0;
+}
+.ck_form .ck_opt_in_prompt {
+  margin-left: 4px;
+}
+.ck_form .ck_opt_in_prompt p {
+  display: inline;
+}
+
+.ck_form .ck_subscribe_button {
+    width: 100%;
+    color: #fff;
+    margin: 10px 0px 0px;
+    padding:  10px 0px;
+    font-size: 18px;
+    background: #b30e2f;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px; /* border radius */
+    cursor: pointer;
+    border: none;
+    text-shadow: none;
+  }
+
+
+.ck_form .ck_guarantee {
+  color: #626262;
+  font-size: 12px;
+  text-align: center;
+  padding: 5px 0px;
+  display: block;
+}
+
+.ck_form .ck_powered_by {
+  display: block;
+  color: #aaa;
+}
+
+.ck_form .ck_powered_by:hover {
+  display: block;
+  color: #444;
+}
+
+.ck_converted_content {
+  display: none;
+  padding: 5%;
+  background: #fff;
+}
+
+
+
+</style>
+`}</pre>
+<p>One more thing – <em>I love hearing from readers.</em> If you have something to say, send <a href="https://twitter.com/james_k_nelson">@james_k_nelson</a> a tweet, or send me an e-mail at <a href="mailto:james@jamesknelson.com">james@jamesknelson.com</a>. <em>Thanks for reading!</em></p>
+<h2>Read More</h2>
+<ul>
+<li><a href="http://jamesknelson.com/react-js-by-example-interacting-with-the-dom/">Interacting with the DOM in React</a></li>
+<li><a href="http://jamesknelson.com/learn-raw-react-no-jsx-flux-es6-webpack/">Learn Raw React Part 1</a></li>
+<li><a href="http://jamesknelson.com/routing-with-raw-react/">Learn Raw React Part 3: Routing</a></li>
+<li><a href="http://jamesknelson.com/structuring-react-applications-higher-order-components/">Introduction to Higher Order Components</a></li>
+</ul>
+<h2>Related Links</h2>
+<ul>
+<li><a href="https://github.com/jamesknelson/raw-react-part-2">Full source at Github</a></li>
+<li><a href="https://facebook.github.io/react/docs/events.html">React event system documentation</a></li>
+</ul>
+//Simple Share Buttons Adder (6.2.2) simplesharebuttons.com
+
+
+</div>
+//end entry-content
+ </div>
