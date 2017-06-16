@@ -24,6 +24,7 @@ export default ({ children, title = 'This is the default title' }) => (
         <Link href='/Post5'><a>Post5</a></Link> |<br></br>
         <Link href='/reactiva'><a>Program Reactive</a></Link> |<br></br>
         <Link href='/diferencias'><a>Diferencias ES6</a></Link> |<br></br>
+        <Link href='/game'><a>Game</a></Link> |<br></br>
       </nav>
     </header>
 
@@ -45,6 +46,7 @@ export default ({ children, title = 'This is the default title' }) => (
         <Link href='/Post5'><a>Post5</a></Link> |<br></br>
         <Link href='/reactiva'><a>Program Reactive</a></Link> |<br></br>
            <Link href='/diferencias'><a>Diferencias ES6</a></Link> |<br></br>
+           <Link href='/game'><a>Game</a></Link> |<br></br>
       </nav>
     </footer>
   </div>
